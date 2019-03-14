@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	config.Provider = config.Cache(mongoconfig.CreateMongoConfigProvider("", "config", "config"))
+	config.Provider = config.Cache(mongoconfig.CreateMongoConfigProvider(&mongoconfig.Config{}))
 	fmt.Fprintf(os.Stdout, "Read config value %s for key %s", config.MustGet("mustExist"), "mustExist")
 }
