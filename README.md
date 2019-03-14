@@ -11,13 +11,12 @@ package main
 
 import (
 	"github.com/nelkinda/config-go"
-	"github.com/nelkinda/config-go/provider/cache"
 	"github.com/nelkinda/config-go/provider/mongoconfig"
 )
 
 func main() {
 	// Setup the provider to be a cached mongodb
-	config.Provider = cache.Cache(mongoconfig.CreateMongoConfigProvider("mongodb://confighost/", "config", "config"))
+	config.Provider = config.Cache(mongoconfig.CreateMongoConfigProvider("mongodb://confighost/", "config", "config"))
 
 	key := "my-configuration-key"
 

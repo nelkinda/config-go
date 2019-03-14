@@ -1,10 +1,8 @@
-package cache
-
-import "github.com/nelkinda/config-go"
+package config
 
 var cache = make(map[string]string)
 
-func Cache(provider config.ProviderFunc) config.ProviderFunc {
+func Cache(provider ProviderFunc) ProviderFunc {
 	return func(key string) (string, error) {
 		if value, ok := cache[key]; ok {
 			return value, nil

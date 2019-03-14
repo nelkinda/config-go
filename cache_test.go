@@ -1,8 +1,7 @@
-package cache
+package config
 
 import (
 	"fmt"
-	"github.com/nelkinda/config-go"
 	"testing"
 )
 
@@ -16,12 +15,12 @@ func TestCache(t *testing.T) {
 			return "", fmt.Errorf("key not found: %s", key)
 		}
 	}
-	config.Provider = Cache(provider)
-	value := config.MustGet("key")
+	Provider = Cache(provider)
+	value := MustGet("key")
 	if value != "value" {
 		t.Errorf("expected value for key %s to be %s but got %s", "key", "value", value)
 	}
-	value = config.MustGet("key")
+	value = MustGet("key")
 	if value != "value" {
 		t.Errorf("expected value for key %s to be %s but got %s", "key", "value", value)
 	}
