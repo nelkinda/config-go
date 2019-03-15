@@ -7,6 +7,15 @@ It's modular, you can write your own configuration provider to get configuration
 ## Status
 - MVP: 100% done
 
+## List of providers
+- Cache, decorates another provider to provide caching of configuration values.
+  Typically used in conjunction with a database provider.
+- Chain, links multiple providers.
+  Typically used to link environment before a database to allow environment configuration to override database configuration.
+- Env, reads configuration values from the environment
+- Map, a simple go-map based provider, useful for testing
+- MongoDB, reads configuration values from a MongoDB or CosmosDB document (see below)
+
 ## Usage
 
 ```go
@@ -14,12 +23,14 @@ package main
 
 import (
 	"github.com/nelkinda/config-go"
+	"github.com/nelkinda/config-go/provider/chainconfig"
+	"github.com/nelkinda/config-go/provider/envconfig"
 	"github.com/nelkinda/config-go/provider/mongoconfig"
 )
 
 func main() {
 	// Setup the provider to be a cached mongodb
-	config.Provider = config.Cache(mongoconfig.CreateMongoConfigProvider(&mongoconfig.Config{}))
+	config.Provider = config.Cache(chainconfig.Link(envconfig.Get, mongoconfig.CreateMongoConfigProvider(&mongoconfig.Config{})))
 
 	key := "my-configuration-key"
 
