@@ -37,6 +37,22 @@ func TestMustMapped(t *testing.T) {
 	MustGet("key")
 }
 
+func TestGetOrDefaultMapped(t *testing.T) {
+	initProvider()
+
+	if val := GetOrDefault("key", "defaultValue"); val != "value" {
+		t.Errorf("Expected %s but got %s", "value", val)
+	}
+}
+
+func TestGetOrDefaultUnmapped(t *testing.T) {
+	initProvider()
+
+	if val := GetOrDefault("unknown", "defaultValue"); val != "defaultValue" {
+		t.Errorf("Expected %s but got %s", "defaultValue", val)
+	}
+}
+
 func TestMustGetUnmapped(t *testing.T) {
 	initProvider()
 

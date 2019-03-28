@@ -32,7 +32,7 @@ func main() {
 	// Setup the provider to be a cached mongodb
 	config.Provider = config.Cache(chainconfig.Link(envconfig.Get, mongoconfig.CreateMongoConfigProvider(&mongoconfig.Config{})))
 
-	key := "my-configuration-key"
+	key := "DATABASE_URL"
 
 	// Use optional configuration values
 	value, err := config.Get(key)
