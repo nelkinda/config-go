@@ -49,12 +49,12 @@ func CreateMongoConfigProvider(c *Config) config.ProviderFunc {
 		return func(key string) (string, error) {
 			e := env{}
 			if err := collection.FindOne(context.Background(), ms).Decode(&e); err != nil {
-				panic(err)
+				return "", fmt.Errorf("configuration collection not found for URI %s database %s collection %s environment %s key %s", c.URI, c.Database, c.Collection, c.Environment, key)
 			}
 			if value, ok := e.Configuration[key]; ok {
 				return value, nil
 			} else {
-				return "", fmt.Errorf("configuration value not found for environment %s key %s", c.Environment, key)
+				return "", fmt.Errorf("configuration value not found for URI %s database %s collection %s environment %s key %s", c.URI, c.Database, c.Collection, c.Environment, key)
 			}
 		}
 	}
